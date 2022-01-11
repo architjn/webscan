@@ -20,15 +20,22 @@ async function takePuppeteerScreenshot(pageURL) {
     await browser.close();
     let finalData = { stageOne: stageOneData, stageTwo: stageTwoData, stageThree: stageThreeData };
     await new PageInfo(finalData).save();
-    return { ...stageOneData, ...stageTwoData};
+    return { ...stageOneData, ...stageTwoData };
 }
 
 //Controller
 const urlController = async function (req, res) {
-    takePuppeteerScreenshot(req.query.page).then(data => {
+    if (typeof req.query.page == 'undefined' || req.query.page == '') {
+        return res.status(400).send({ error: 'Page URL is required' });
+    }
+    let pageURL = req.query.page;
+    if (!req.query.page.startsWith('http')) {
+        pageURL = 'http://' + pageURL;
+    }
+    takePuppeteerScreenshot(pageURL).then(data => {
         res.json({ ...data });
-    }).catch(err=> {
-        console.log(err);
+    }).catch(err => {
+        res.status(500).send({ error: err });
     });
 };
 
