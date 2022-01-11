@@ -1,0 +1,19 @@
+{
+  "name": "webscan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Archit",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "html-to-text": "^8.1.0",
+    "mongoose": "^6.1.6",
+    "puppeteer": "^13.0.1",
+    "whoiser": "^1.13.1"
+  }
+}
